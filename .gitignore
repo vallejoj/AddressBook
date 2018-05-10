@@ -3,4 +3,5 @@ config
 .eslintrc.js
 .jshintrc
 .history
+.snyk
 config
