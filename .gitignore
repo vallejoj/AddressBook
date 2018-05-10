@@ -1,0 +1,6 @@
+node_modules
+config
+.eslintrc.js
+.jshintrc
+.history
+config
