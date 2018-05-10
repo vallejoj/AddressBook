@@ -6,6 +6,4 @@ const {mongoose} = require('../db/mongoose');
 
 const {User} = require('../models/user');
 
-console.log("User");
-
 module.exports = router;
