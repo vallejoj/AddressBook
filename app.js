@@ -7,6 +7,10 @@ const PORT = process.env.PORT || 4000;
 
 // Defining our express app
 const app = express();
+ 
+//routes
+const user = require("./routes/user.js");
+const contact = require("./routes/contact.js");
 
 //protection for our headers
 app.use(helmet({
@@ -26,4 +30,7 @@ app.use(
     type: "*/*"
   })
 );
+
+app.use("/api/user", user);
+app.use("/api/contact", contact);
 
