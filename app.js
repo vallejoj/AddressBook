@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 4000;
 
 // Defining our express app
 const app = express();
- 
+
 //routes
 const user = require("./routes/user.js");
 const contact = require("./routes/contact.js");
@@ -19,11 +19,6 @@ app.use(helmet({
   }
 }));
 
-// Server
-app.listen(PORT, () => {
-  console.log("listening on", PORT);
-});
-
 //parse data into readable JSON
 app.use(
   bp.json({
@@ -34,3 +29,7 @@ app.use(
 app.use("/api/user", user);
 app.use("/api/contact", contact);
 
+// Server
+app.listen(PORT, () => {
+  console.log("listening on", PORT);
+});
