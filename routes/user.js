@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
-
+const bcrypt = require('bcryptjs');
+const _ = require('lodash');
 const {
   ObjectID
 } = require('mongodb');
@@ -23,8 +23,6 @@ router.post("/register", (req, res) => {
     password: req.body.password
   });
 
-
-
   user.save().then(() => {
     return user.generateAuthToken();
   }).then(token => {
@@ -37,6 +35,18 @@ router.post("/register", (req, res) => {
 
 
 
-router.post("/signin");
+
+router.post("/login", (req, res) => {
+  console.log(req.body);
+  var body = _.pick(req.body, ['email', 'password']);
+
+  User.loginByEmail(body.email, body.password).then((user) => {
+    return user.generateAuthToken().then((token) => {
+      res.header('x-auth', token).send(user);
+    });
+  }).catch((error) => {
+    res.status(400).send("Wrong Password");
+  });
+});
 
 module.exports = router;
