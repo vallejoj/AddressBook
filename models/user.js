@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
+const bcrypt = require('bcryptjs');
+
+
 
 const {
   JWT_SECRET
@@ -63,12 +64,6 @@ UserSchema.methods.generateAuthToken = function () {
     access
   }, JWT_SECRET).toString();
 
-  // hash user password before saving into database
-  UserSchema.pre('save', function (next) {
-    this.password = bcrypt.hashSync(this.password, saltRounds);
-    next();
-  });
-
   user.tokens = user.tokens.concat([{
     access,
     token
@@ -78,8 +73,62 @@ UserSchema.methods.generateAuthToken = function () {
     return token;
   });
 };
+UserSchema.methods.generateAuthToken = function () {
+  var user = this;
+  var access = 'auth';
+  var token = jwt.sign({
+    _id: user._id.toHexString(),
+    access
+  }, JWT_SECRET).toString();
 
-var User = mongoose.model('User', UserSchema);
+  user.tokens.push({
+    access,
+    token
+  });
+
+  return user.save().then(() => {
+    return token;
+  });
+};
+
+// hash user password before saving into database
+UserSchema.pre('save', function (next) {
+  var user = this;
+
+  if (user.isModified('password')) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        user.password = hash;
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+});
+
+UserSchema.statics.loginByEmail = function (email, password) {
+  var User = this;
+
+  return User.findOne({
+    email
+  }).then(user => {
+    if (!user) {
+      return Promise.reject();
+    }
+    return bcrypt.compare(password, user.password).then(res => {
+      if (res) {
+        return Promise.resolve(user);
+      } else {
+        return Promise.reject();
+      }
+    }).catch(err => {
+      return Promise.reject();
+    });
+  });
+};
+
+const User = mongoose.model('User', UserSchema);
 
 module.exports = {
   User
