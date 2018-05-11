@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 const {
   ObjectID
 } = require('mongodb');
@@ -12,8 +13,8 @@ const {
   User
 } = require('../models/user');
 
+
 router.post("/register", (req, res) => {
-  console.log("BODY", req.body);
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -21,10 +22,16 @@ router.post("/register", (req, res) => {
     password: req.body.password
   });
 
-  user.save().then((doc) => {
-    res.send(doc);
-  }, (e) => {
-    res.status(400).send(e);
+
+  console.log(user, "USER");
+
+  user.save().then(() => {
+    return user.generateAuthToken();
+  }).then(token => {
+    console.log("SEND USER", user)
+    res.header('x-auth', token).send(user);
+  }).catch((error) => {
+    res.status(400).send(error);
   });
 });
 
