@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const {
   JWT_SECRET
@@ -60,6 +62,12 @@ UserSchema.methods.generateAuthToken = function () {
     _id: user._id.toHexString(),
     access
   }, JWT_SECRET).toString();
+
+  // hash user password before saving into database
+  UserSchema.pre('save', function (next) {
+    this.password = bcrypt.hashSync(this.password, saltRounds);
+    next();
+  });
 
   user.tokens = user.tokens.concat([{
     access,

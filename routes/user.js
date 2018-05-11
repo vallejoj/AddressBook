@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const bcrypt = require('bcrypt');
 
 const {
   ObjectID
@@ -13,8 +13,9 @@ const {
   User
 } = require('../models/user');
 
-
 router.post("/register", (req, res) => {
+  console.log(req.body, "USer")
+
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -23,17 +24,17 @@ router.post("/register", (req, res) => {
   });
 
 
-  console.log(user, "USER");
 
   user.save().then(() => {
     return user.generateAuthToken();
   }).then(token => {
-    console.log("SEND USER", user)
+    console.log("SEND USER", user);
     res.header('x-auth', token).send(user);
   }).catch((error) => {
     res.status(400).send(error);
   });
 });
+
 
 
 router.post("/signin");
