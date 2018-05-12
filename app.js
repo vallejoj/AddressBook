@@ -1,12 +1,16 @@
+require('./server.config.js');
+
 const express = require('express');
 const bp = require('body-parser');
 const helmet = require('helmet');
 
-//Port 
-const PORT = process.env.PORT || 4000;
+
 
 // Defining our express app
 const app = express();
+
+//Port
+const port = process.env.PORT;
 
 //routes
 const user = require("./routes/user.js");
@@ -31,6 +35,10 @@ app.use("/api/user", user);
 app.use("/api/contact", contact);
 
 // Server
-app.listen(PORT, () => {
-  console.log("listening on", PORT);
+app.listen(port, () => {
+  console.log("listening on", port);
 });
+
+module.exports = {
+  app
+};
