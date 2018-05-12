@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 const request = require('supertest');
-var chai = require('chai'),
+const chai = require('chai'),
     assert = chai.assert,
     expect = chai.expect,
     should = chai.should;
 
-var chaiHttp = require('chai-http');
+const chaiHttp = require('chai-http');
 
 const {
     ObjectID
@@ -28,27 +28,44 @@ const {
 
 chai.use(chaiHttp);
 
-// before(populateUsers);
+populateUsers();
+
+describe('GET api/user/me', () => {
+    it('should get your user data if authenticated', (done) => {
+        chai.request(app)
+            .get('/api/user/me')
+            .set('x-auth', users[0].tokens[0].token)
+            .end((err, res) => {
+                res.should.have.status(200)
+                user[0].should.have.property('_id')
+            })
+    })
+
+    it('should return 401 if not authenticated', (done) => {
+        done();
+    })
+});
+
 
 describe('POST api/user/register', () => {
     it('should register and create a new user', (done) => {
         const user = {
-            firstName: "Joshi",
-            lastName: "Blankenstein",
-            email: "jb@gmail.com",
-            password: "fiddlesticks"
+            firstName: 'Joshi',
+            lastName: 'Blankenstein',
+            email: 'jb@gmail.com',
+            password: 'fiddlesticks'
         }
 
         chai.request(app)
             .post('/api/user/register')
             .send(user)
             .end((err, res) => {
-                expect(res.statusCode).to.equal(400);
+                expect(res.statusCode).to.equal(200);
                 res.body.should.be.a('object');
-                res.body.book.should.have.property('firstName');
-                res.body.book.should.have.property('lastName');
-                res.body.book.should.have.property('email');
-                res.body.book.should.have.property('password');
+                res.body.firstName.should.have.property('firstName');
+                res.body.lastName.should.have.property('lastName');
+                res.body.email.should.have.property('email');
+                res.body.password.should.have.property('password');
                 expect(res).to.have.header('x-auth');
                 User.findOne({
                     email: 'jb@gmail.com'
@@ -66,7 +83,7 @@ describe('POST api/user/register', () => {
             .post('/api/user/register')
             .send({
                 email: 'monkey',
-                password: "ble"
+                password: 'ble'
             })
             .end((err, res) => {
                 expect(res.statusCode).to.equal(400);
@@ -123,7 +140,7 @@ describe('POST api/user/login', () => {
             .post('/api/user/login')
             .send({
                 email: users[1].email,
-                password: "notpassword"
+                password: 'notpassword'
             })
             .end((err, res) => {
                 if (err) {
