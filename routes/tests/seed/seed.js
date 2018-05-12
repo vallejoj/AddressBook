@@ -12,11 +12,10 @@ const {
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
 
-console.log("anything?")
 const users = [{
     _id: userOneId,
     firstName: "Jman",
-    lastName: "MgGilicuty",
+    lastName: "MgGilicurrty",
     email: 'vallejomon@gmail.com',
     password: 'mypassword',
     tokens: [{
@@ -34,17 +33,16 @@ const users = [{
     password: 'mypassword2',
 }];
 
-var populateUsers = (done) => {
-    console.log("DATATIME")
+
+const populateUsers = (done) => {
     User.remove({}).then(() => {
         var userOne = new User(users[0]).save();
         var userTwo = new User(users[1]).save();
-        console.log(users[0], "user")
-        return Promise.all([userOne, userTwo])
-    }).then((data) => {
-        console.log("data", data)
-    });
-}
+
+        return Promise.all([userOne, userTwo]);
+    }).then(() => done());
+};
+
 
 
 module.exports = {
