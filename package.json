@@ -4,7 +4,7 @@
   "description": "STRV Technical Interview",
   "main": "server.js",
   "scripts": {
-    "test": "snyk test && export NODE_ENV=test || SET NODE_ENV=test && mocha  **/**/*.test.js && jshint app.js",
+    "test": " export NODE_ENV=test || SET NODE_ENV=test && mocha  **/**/*.test.js && jshint app.js",
     "start": "node server.js",
     "test-watch": "nodemon --exec 'npm test'"
   },
