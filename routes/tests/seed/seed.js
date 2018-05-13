@@ -1,21 +1,16 @@
-const {
-    ObjectID
-} = require('mongodb');
+const {ObjectID} = require('mongodb');
 const jwt = require('jsonwebtoken');
-const {
-    JWT_SECRET
-} = require('../../../config/config.js');
-const {
-    User
-} = require('../../../models/user.js');
+
+const {JWT_SECRET} = require('../../../config/config.js');
+const {User} = require('../../../models/user.js');
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
 
 const users = [{
     _id: userOneId,
-    firstName: "Jman",
-    lastName: "MgGilicurrty",
+    firstName: 'Jman',
+    lastName: 'MgGilicurrty',
     email: 'vallejomon@gmail.com',
     password: 'mypassword',
     tokens: [{
@@ -27,23 +22,21 @@ const users = [{
     }]
 }, {
     _id: userTwoId,
-    firstName: "Day",
-    lastName: "Man",
+    firstName: 'Day',
+    lastName: 'Man',
     email: 'dayman@gmail.com',
     password: 'mypassword2',
 }];
 
-
 const populateUsers = (done) => {
-    User.remove({}).then(() => {
-        var userOne = new User(users[0]).save();
-        var userTwo = new User(users[1]).save();
-
+    User.remove({})
+    .then(() => {
+        const userOne = new User(users[0]).save();
+        const userTwo = new User(users[1]).save();
         return Promise.all([userOne, userTwo]);
-    }).then(() => done());
+    })
+    .then(() => done());
 };
-
-
 
 module.exports = {
     users,
