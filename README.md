@@ -11,26 +11,27 @@ To get the Node server running locally:
 - Install MongoDB Community Edition ([instructions](https://docs.mongodb.com/manual/installation/#tutorials)) and run it by executing `mongod`
 - Fill in the config.js under config-fake folder with your Firebase info (you may have to make your on database if you do not already have one(https://docs.mongodb.com/manual/installation/#tutorials))and JWT_SECRET with your own secret
 - In config.js and  config.json make sure to fill in MONGO_URI to equal your mongo db URI which looks something like 'mongodb://localhost:27017/{nameofdatabase}'
-- 
 - You can then start the server using `node server.js`
 
 # How to test
 
 ##NPM TEST 
-You can run 'npm test' in the terminal in the root of the project to make sure that the routes are working 
+-You can run 'npm test' in the terminal in the root of the project to make sure that the routes are working 
 
 ##POSTMAN
-You can either create request using Postman('https://www.getpostman.com/') at 'localhost:4000/' or 'https://floating-gorge-67548.herokuapp.com//api/user/me/' with the routes below. Test the routes in order. 
+-You can either create request using Postman('https://www.getpostman.com/') at 'localhost:4000/' or 'https://floating-gorge-67548.herokuapp.com//api/user/me/' with the routes below. Test the routes in order. 
 ### POST /api/user/register
 ### POST /api/user/login
+
+To test routes below make sure to grap x-auth token in the header response and then for your header request fill in key value with `x-auth ` under key and the token under value. 
+
 ### GET /api/user/me
 ### POST /api/contact/new
 ### DELETE /api/user/logout
 
 # Code Overview
 
-##
-Routes 
+##Routes 
 
 ### POST /api/user/register
 This route is to create/register our user. 
@@ -38,22 +39,18 @@ This route is to create/register our user.
 Request body:
 
     {
-     
     "firstName": string,
     "lastName": string,
     "email": string,
-    "password": string
-    
+    "password": string   
     }
 Response body:
 
-    {
-     
+    {  
     "firstName": "Joshi",
     "lastName": "Vallejo",
     "email": "vallejodudemon@gmail.com",
     "_id": "5af7ac67a31ab1c2036fbb41"
-    
     }
 
 ### POST /api/user/login
@@ -62,20 +59,16 @@ This route is used to login our user
 Request body:
 
     {
-     
     "email": string,
      "password": string
-   
     }
 Response body:
 
-    {
-     
+    { 
     "firstName": "Joshi",
     "lastName": "Vallejo",
     "email": "vallejodudemon@gmail.com",
     "_id": "5af7ac67a31ab1c2036fbb41"
-    
     }
   
 ### GET /api/user/me
@@ -84,15 +77,12 @@ This route is to get the information of who is logged in
 Header
 
     {
-    
     "x-auth": "token
-    
     }
-
 Response body:
 
     {
-     
+
     }  
 
 ### POST /api/contact/new
@@ -101,30 +91,24 @@ This route is user to create a contact, route is protected so one would need to 
 Header
 
     {
-    
     "x-auth": "token
-    
     }
 Request body:
 
     {
-     
     "contactFirstName"": string,
     "contactLastName"": string,
     "email": string,
     "phone": string
-    
     }  
 
 Response body:
 
     {
-     
     "contactFirstName"": "Joshi",
     "contactLastName"": "VallejoMon",
     "email": "vallejodudemon@gmail.com",
     "phone": "8087223333"
-    
     }  
 
 ### Delete /api/user/logout
@@ -132,18 +116,14 @@ This route is to logout
 
 Header
 
-
     {
-    
     "x-auth": "token
-    
     }
    
 Response body:
 
     {
-     
-    
+       Logged Out  
     }
 
 

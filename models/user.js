@@ -12,11 +12,19 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    validate: {
+      validator: /^[a-z0-9 -]+$/i,
+      message: `{VALUE is not a valid first name}`
+    },
   },
   lastName: {
     type: String,
     required: true,
     trim: true,
+    validate: {
+      validator: /^[a-z0-9 -]+$/i,
+      message: `{VALUE is not a valid last name}`
+    },
   },
   email: {
     type: String,
@@ -55,7 +63,7 @@ UserSchema.methods.toJSON = function () {
   ]);
 };
 
-//hash user password before saving into database
+//hash user password before saving into database if password is modified
 UserSchema.pre('save', function (next) {
   const user = this;
   if (user.isModified('password')) {
@@ -93,7 +101,7 @@ UserSchema.statics.loginByEmail = function (email, password) {
   });
 };
 
-// method to create our token
+// method to create token
 UserSchema.methods.generateAuthToken = function () {
   const user = this;
   const access = 'auth';
