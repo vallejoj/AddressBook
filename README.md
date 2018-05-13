@@ -19,7 +19,7 @@ To get the Node server running locally:
 -You can run 'npm test' in the terminal in the root of the project to make sure that the routes are working 
 
 ##POSTMAN
--You can either create request using Postman('https://www.getpostman.com/') at 'localhost:4000/' or 'https://floating-gorge-67548.herokuapp.com//api/user/me/' with the routes below. Test the routes in order. 
+-You can either create request using Postman('https://www.getpostman.com/') at 'localhost:4000/' or 'https://floating-gorge-67548.herokuapp.com/' with the routes below. Test the routes in order. 
 ### POST /api/user/register
 ### POST /api/user/login
 
@@ -162,6 +162,8 @@ Response body:
 - `routes/test` - This folder contains our test for both our contact and user routes
 - `routes/test/seed` - This contains our dummy data for our test database
 
+## Hosted on Heroku 
+https://git.heroku.com/floating-gorge-67548.git
 
 
 
