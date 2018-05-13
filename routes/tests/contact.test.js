@@ -11,7 +11,6 @@ const {users, populateUsers} = require('./seed/seed');
 const {app} = require('../../server.js');
 const {User} = require('../../models/user.js');
 
-
 chai.use(chaiHttp);
 beforeEach(populateUsers);
 
