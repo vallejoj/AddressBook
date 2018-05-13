@@ -28,7 +28,7 @@ router.post('/new', authenticate,
                 Email: req.body.email
             })
             .then(() => {
-                res.status(200).send();
+                res.status(200).send(req.body);
             })
             .catch(err => {
                 res.status(400).send();
