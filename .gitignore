@@ -3,3 +3,4 @@ node_modules
 .jshintrc
 .history
 .snyk
+config
