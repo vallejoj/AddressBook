@@ -9,7 +9,8 @@ const FIREBASE_CONFIG = {
 
 const JWT_SECRET = 'Enter your secret here';
 
+const SECRET = 'Enter your secret here';
 module.exports = {
   FIREBASE_CONFIG,
-  JWT_SECRET
+  SECRET
 };

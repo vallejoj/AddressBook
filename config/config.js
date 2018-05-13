@@ -9,7 +9,9 @@ const FIREBASE_CONFIG = {
 
 const JWT_SECRET = 'I follow a cat profile on instagram';
 
+const SECRET = 'I also follow a puppy on the Instagram'
 module.exports = {
   FIREBASE_CONFIG,
-  JWT_SECRET
+  JWT_SECRET,
+  SECRET
 };

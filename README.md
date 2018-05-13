@@ -130,6 +130,7 @@ Response body:
 ## Dependencies
 - [bcryptjs](https://github.com/dcodeIO/bcrypt.js/blob/master/README.md) - Used for hashing passwords 
 - [body-parser](https://github.com/expressjs/body-parser) - Parse incoming request bodies in a middleware before your handlers, available under the req.body property
+- [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) - Basic rate-limiting middleware for Express. Use to limit repeated requests to public APIs and/or endpoints such as password reset.
 - [expressjs](https://github.com/expressjs/express) - The server for handling and routing HTTP requests
 - [express-validator](https://github.com/express-validator/express-validator) - User for validating data before sending it to server
 - [firebase](https://www.npmjs.com/package/firebase) - User to initialize firebase, in this case Firebase database
