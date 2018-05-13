@@ -8,7 +8,7 @@ const chaiHttp = require('chai-http');
 const { ObjectID} = require('mongodb');
 
 const {users, populateUsers} = require('./seed/seed');
-const {app} = require('../../app.js');
+const {app} = require('../../server.js');
 const {User} = require('../../models/user.js');
 
 
