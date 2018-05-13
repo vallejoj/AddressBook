@@ -4,10 +4,9 @@ const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 
-const {
-  JWT_SECRET
-} = require('../config/config.js');
+const {JWT_SECRET} = require('../config/config.js');
 
+//Mongoose database schema
 const UserSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -47,18 +46,16 @@ const UserSchema = new mongoose.Schema({
   }]
 });
 
+//method to send back specific properties
 UserSchema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
-
   return _.pick(userObject, ['firstName', 'lastName',
     'email', '_id'
   ]);
 };
 
-
-
-// hash user password before saving into database
+//hash user password before saving into database
 UserSchema.pre('save', function (next) {
   const user = this;
   if (user.isModified('password')) {
@@ -78,7 +75,8 @@ UserSchema.statics.loginByEmail = function (email, password) {
   const User = this;
   return User.findOne({
     email
-  }).then(user => {
+  })
+  .then(user => {
     if (!user) {
       return Promise.reject();
     }
@@ -88,7 +86,8 @@ UserSchema.statics.loginByEmail = function (email, password) {
       } else {
         return Promise.reject();
       }
-    }).catch(err => {
+    })
+    .catch(err => {
       return Promise.reject();
     });
   });
@@ -123,9 +122,6 @@ UserSchema.statics.findByToken = function (token) {
   } catch (error) {
     return Promise.reject();
   }
-
-  console.log("decode", decoded);
-
   return User.findOne({
     '_id': decoded._id,
     'tokens.token': token,
@@ -133,8 +129,9 @@ UserSchema.statics.findByToken = function (token) {
   });
 };
 
+// method to remove Token when logging out
 UserSchema.methods.removeToken = function (token) {
-  var user = this;
+  const user = this;
 
   return user.update({
     $pull: {
@@ -143,8 +140,8 @@ UserSchema.methods.removeToken = function (token) {
       }
     }
   });
-
 };
+
 const User = mongoose.model('User', UserSchema);
 
 module.exports = {
