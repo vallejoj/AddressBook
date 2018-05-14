@@ -24,7 +24,7 @@ To get the Node server running locally:
 ### POST /api/user/login
 
 To test routes below make sure to grab x-auth token in the header response and then for your header request fill in key value with `x-auth ` under key and the token under value. 
-
+![alt text](AddressBook/Screen Shot 2018-05-13 at 5.38.13 PM.png "Not a real token above")
 ### GET /api/user/me
 ### POST /api/contact/new
 ### DELETE /api/user/logout
