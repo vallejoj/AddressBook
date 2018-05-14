@@ -1,5 +1,5 @@
 # STRV ADDRESS BOOK
-Address book backend server using Node.js and Express.js
+This is the backend server for an address book application using Node.js and Express.js
 
 
 # Getting started
@@ -9,7 +9,7 @@ To get the Node server running locally:
 - Clone this repo
 - `npm install` to install all required dependencies
 - Install MongoDB Community Edition ([instructions](https://docs.mongodb.com/manual/installation/#tutorials)) and run it by executing `mongod`
-- Fill in the config.js under config-fake folder with your Firebase info (you may have to make your on database if you do not already have one(https://docs.mongodb.com/manual/installation/#tutorials))and JWT_SECRET with your own secret
+- Fill in the config.js under config-fake folder with your Firebase info (you will have to make your on database if you do not already have one(https://docs.mongodb.com/manual/installation/#tutorials))and JWT_SECRET with your own secret
 - In config.js and  config.json make sure to fill in MONGO_URI to equal your mongo db URI which looks something like 'mongodb://localhost:27017/{nameofdatabase}'
 - You can then start the server using `node server.js`
 
@@ -19,12 +19,12 @@ To get the Node server running locally:
 -You can run 'npm test' in the terminal in the root of the project to make sure that the routes are working 
 
 ##POSTMAN
--You can either create request using Postman('https://www.getpostman.com/') at 'localhost:4000/' or 'https://floating-gorge-67548.herokuapp.com/' with the routes below. Test the routes in order. 
+-You can either create requests using Postman('https://www.getpostman.com/') at 'localhost:4000/' or 'https://floating-gorge-67548.herokuapp.com/' with the routes below. Test the routes in order. 
 ### POST /api/user/register
 ### POST /api/user/login
 
-To test routes below make sure to grap x-auth token in the header response and then for your header request fill in key value with `x-auth ` under key and the token under value. 
-
+To test routes below make sure to grab x-auth token in the header response and then for your header request fill in key value with `x-auth ` under key and the token under value. 
+![alt text](AddressBook/Screen Shot 2018-05-13 at 5.38.13 PM.png "Not a real token above")
 ### GET /api/user/me
 ### POST /api/contact/new
 ### DELETE /api/user/logout
@@ -60,7 +60,7 @@ Request body:
 
     {
     "email": string,
-     "password": string
+    "password": string
     }
 Response body:
 
@@ -72,7 +72,7 @@ Response body:
     }
   
 ### GET /api/user/me
-This route is to get the information of who is logged in 
+This route is to get the information of who is logged in using a token
 
 Header
 
@@ -112,7 +112,7 @@ Response body:
     }  
 
 ### Delete /api/user/logout
-This route is to logout
+This route is to logout also using a token to logout 
 
 Header
 
