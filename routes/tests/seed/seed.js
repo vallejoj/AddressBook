@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const {JWT_SECRET} = require('../../../config-fake/config.js');
 const {User} = require('../../../models/user.js');
-console.log("SECRE", JWT_SECRET)
+
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
 
