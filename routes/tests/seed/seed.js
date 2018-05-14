@@ -1,7 +1,7 @@
 const {ObjectID} = require('mongodb');
 const jwt = require('jsonwebtoken');
 
-const {JWT_SECRET} = require('../../../config/config.js');
+const {JWT_SECRET} = require('../../../config-fake/config.js');
 const {User} = require('../../../models/user.js');
 
 const userOneId = new ObjectID();
