@@ -7,10 +7,11 @@ const FIREBASE_CONFIG = {
   messagingSenderId: ''
 };
 
-const JWT_SECRET = 'Enter your secret here';
+const JWT_SECRET = 'I follow a cat profile on instagram';
 
 const SECRET = 'Enter your secret here';
 module.exports = {
+  JWT_SECRET,
   FIREBASE_CONFIG,
   SECRET
 };

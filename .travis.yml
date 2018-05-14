@@ -6,8 +6,9 @@ node_js:
 env:
 - NODE_ENV=TEST
 install:
-  - travis_wait mvn install
   - npm install
+  - travis_wait mvn install
+  
 script:
   - npm test
   services:
