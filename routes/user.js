@@ -3,13 +3,12 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const _ = require('lodash');
 
-
 const {authenticate} = require('../middleware/authenticate');
 const {ObjectID} = require('mongodb');
 const {mongoose} = require('../db/mongoose');
 const {User} = require('../models/user');
 
-//route for registering user
+//route for registering user which generates token
 router.post('/register', (req, res) => {
  
   const user = new User({
@@ -31,7 +30,7 @@ router.post('/register', (req, res) => {
     });
 });
 
-//route for logging in
+//route for logging in that requires proper email and password
 router.post('/login', (req, res) => {
 
   const body = _.pick(req.body, ['email', 'password']);
@@ -44,22 +43,22 @@ router.post('/login', (req, res) => {
       });
     })
     .catch(error => {
-      res.status(400).send('Wrong Password');
+      res.status(400).send('Incorrect Password');
     });
 });
 
-//route for finding the user who is logged in
+//protected route for finding current user info, only accessible with the proper token in the header
 router.get('/me', authenticate, (req, res) => {
   res.send(req.user);
 });
 
-//route for logging out
+//route for logging out by dropping token, only accessible with the proper token in the header
 router.delete('/logout', authenticate, (req, res) => {
   req.user.removeToken(req.token)
   .then(() => {
-    res.status(200).send();
+    res.status(200).send('Logged Out');
   }, () => {
-    res.status(400).send();
+    res.status(400).send('Invalid Logout');
   });
 });
 

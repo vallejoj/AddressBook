@@ -10,7 +10,8 @@ const contactBody = ['contactFirstName', 'contactLastName', 'phone'];
 
 //create new contact using a protected route and validating the body
 router.post('/new', authenticate,
-    body('email').isEmail().withMessage('must be an email'), body(contactBody).matches(/^[a-z0-9 -]+$/i),
+    body('email').isEmail().withMessage('must be an email'),
+    body(contactBody).matches(/^[a-z0-9 -]+$/i),
     (req, res) => {
 
         const fullname = `${req.user.firstName} ${req.user.lastName}'s`;

@@ -8,29 +8,36 @@ const chai = require('chai'),
 const chaiHttp = require('chai-http');
 const {ObjectID} = require('mongodb');
 const {users,populateUsers} = require('./seed/seed');
-const {app} = require('../../app.js');
+const {app} = require('../../server.js');
 const {User} = require('../../models/user.js');
 
 chai.use(chaiHttp);
 
 beforeEach(populateUsers);
 
-// describe('GET api/user/me', () => {
-//     it('should get your user data if authenticated', done => {
-//         request(app)
-//             .get('/api/users/me')
-//             .set('x-auth', users[0].tokens[0].token)
+describe('GET api/user/me', () => {
+    it('should get your user data if authenticated', done => {
+        request(app)
+            .get('/api/user/me')
+            .set('x-auth', users[0].tokens[0].token)
 
-//             .expect((res) => {
-//                 expect(res.body._id).toBe(users[0]._id.toHexString());
-//                 expect(res.body.email).toBe(users[0].email);
-//             })
-//             .end(done);
-//     })
-//     it('should return 401 if not authenticated', done => {
-//         done();
-//     })
-// });
+            .expect((res) => {
+                expect(res.statusCode).to.equal(200)
+                expect(res.body._id).to.equal(users[0]._id.toHexString());
+                expect(res.body.email).to.equal(users[0].email);
+            })
+            .end(done);
+    });
+    it('should return 401 if not authenticated', done => {
+         request(app)
+           .get('/api/user/me')
+            .set('x-auth', "notauth")
+            .expect((res) => {
+                 expect(res.statusCode).to.equal(401)
+            })
+            .end(done);
+    });
+});
 
 describe('POST api/user/register', () => {
     it('should register and create a new user', done => {
@@ -98,10 +105,10 @@ describe('POST api/user/login', () => {
                 expect(res).to.have.header('x-auth');
                 User.findById(users[1]._id)
                     .then(user => {
-                        // expect(user.token[0].toInclude({
-                        //     access: 'auth',
-                        //     token: res.headers['x-auth']
-                        // }));
+                        expect(user.tokens[0]).to.deep.include({
+                            access: 'auth',
+                            token: res.headers['x-auth']
+                        });
                         done();
                     })
                     .catch(err => done(err));
