@@ -13,9 +13,10 @@ router.post('/new', authenticate,
     body('email').isEmail().withMessage('must be an email'),
     body(contactBody).matches(/^[a-z0-9 -]+$/i),
     (req, res) => {
-
+console.log(req.user._id)
         const fullname = `${req.user.firstName} ${req.user.lastName}'s`;
         const contact = `${req.body.contactFirstName} ${req.body.contactLastName}`;
+        const id = req.user._id;
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -24,7 +25,7 @@ router.post('/new', authenticate,
             };
             res.status(400).send(resBody);
         } else {
-            firebase.database().ref(`${fullname} contacts/${contact}/`).set({
+            firebase.database().ref(`/${id}/${fullname} contacts/${contact}/`).set({
                 Phone: req.body.phone,
                 Email: req.body.email
             })
