@@ -1,4 +1,4 @@
-# STRV ADDRESS BOOK
+#  ADDRESS BOOK
 This is the backend server for an address book application using Node.js and Express.js
 
 
@@ -168,11 +168,5 @@ Response body:
 
 ## Hosted on Heroku 
 https://git.heroku.com/floating-gorge-67548.git
-
-## Link to author's article on project
-Below is a link to an unlisted article (meaning you can only see it from this link) on the process of creating the project:
-https://medium.com/@joshuavallejo/strv-and-me-9fd17958228b
-
-
 
 
